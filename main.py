@@ -1,4 +1,5 @@
-from tkinter import Tk, Label, Button,StringVar,DISABLED,NORMAL
+from tkinter import Tk, Label, Button,StringVar,DISABLED,NORMAL,Scale, Entry
+from tkinter.constants import HORIZONTAL, S
 from PIL import ImageTk,Image
 
 class App:
@@ -9,6 +10,11 @@ class App:
         # string vars
         self.cur_button = StringVar()
         self.cur_button = '1'
+
+        self.gain_label_text = StringVar()
+        self.gain_label_text = 'Gain = Rf/Rin'
+
+        self.answer = StringVar()
 
         # master label
         self.label = Label(master, text="Operational amplifier Gain calculator")
@@ -33,6 +39,24 @@ class App:
         self.img = Label(image=self.invert_image_pi)
         self.img.pack()
 
+        # Gain label
+        self.gain_label = Label(master,text=self.gain_label_text)
+        self.gain_label.pack()
+
+        # Inputs
+        rf_label = Label(master,text='RF: ')
+        self.rf_entry = Entry(master)
+        self.rf_entry.pack()
+        rin_label = Label(master,text='RIN: ')
+        self.rin_entry = Entry(master)
+        self.rin_entry.pack()
+
+        # Calculate
+        self.calculate = Button(master,text="Calculate",command=self.calculate_answer)
+        self.calculate.pack()
+        
+        self.final_label = Label(master,textvariable=self.answer,fg='green',bg='black')
+        self.final_label.pack()
 
         # FIN
         self.close_button = Button(master, text="Close", command=master.quit)
@@ -43,15 +67,26 @@ class App:
             self.invert_button.configure(state=NORMAL)
             self.non_invert_button.configure(state=DISABLED)
             self.img.configure(image=self.non_invert_image_pi)
+            self.gain_label.configure(text="Gain = 1 + Rf/Rin")
             self.cur_button = '0'
         else:
             self.invert_button.configure(state=DISABLED)
             self.non_invert_button.configure(state=NORMAL)
             self.img.configure(image=self.invert_image_pi)
+            self.gain_label.configure(text="Gain = Rf/Rin")
             self.cur_button = '1'
+
+    def calculate_answer(self):
+        rf_val = int(self.rf_entry.get())
+        rin_val = int(self.rin_entry.get())
+        if self.cur_button == '1':
+            self.answer = rf_val/rin_val
+        else:
+            self.answer = 1 + rf_val/rin_val
+        print(self.answer)
  
 
 root = Tk()
 app = App(root)
-root.geometry("1200x700")
+#  root.geometry("1200x700")
 root.mainloop()
