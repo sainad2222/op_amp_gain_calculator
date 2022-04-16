@@ -16,6 +16,7 @@ class App:
         self.gain_label_text = 'Gain = Rf/Rin'
 
         self.answer = StringVar()
+        self.answer = '0'
 
         # master label
         self.label = Label(
@@ -48,10 +49,10 @@ class App:
         self.gain_label.pack()
 
         # Inputs
-        rf_label = Label(master, text='RF: ')
+        rf_label = Label(master, text='RF: ', fg='black',bg='white').pack()
         self.rf_entry = Entry(master)
         self.rf_entry.pack()
-        rin_label = Label(master, text='RIN: ')
+        rin_label = Label(master, text='RIN: ',fg='black',bg='white').pack()
         self.rin_entry = Entry(master)
         self.rin_entry.pack()
 
@@ -61,7 +62,7 @@ class App:
         self.calculate.pack()
 
         self.final_label = Label(
-            master, textvariable=self.answer, fg='green', bg='black')
+            master, text=self.answer, fg='black', bg='white')
         self.final_label.pack()
 
         # FIN
@@ -89,7 +90,7 @@ class App:
             self.answer = rf_val/rin_val
         else:
             self.answer = 1 + rf_val/rin_val
-        print(self.answer)
+        self.final_label.configure(text=self.answer)
 
 
 root = Tk()
