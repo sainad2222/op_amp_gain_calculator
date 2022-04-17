@@ -1,5 +1,5 @@
 from tkinter import Tk, Label, Button, StringVar, DISABLED, NORMAL, Scale, Entry
-from tkinter.constants import HORIZONTAL, S
+from tkinter.constants import CENTER, HORIZONTAL, NSEW, S
 from PIL import ImageTk, Image
 
 
@@ -21,17 +21,17 @@ class App:
         # master label
         self.label = Label(
             master, text="Operational amplifier Gain calculator")
-        self.label.pack()
+        self.label.grid(row=0,column=0)
 
         # Buttons
         self.invert_button = Button(
             master, text="Inverting", command=self.switch_type)
         self.invert_button.configure(state=DISABLED)
-        self.invert_button.pack()
+        self.invert_button.grid(row=1,column=0)
         self.non_invert_button = Button(
             master, text="Non Inverting", command=self.switch_type)
         self.non_invert_button.configure(state=NORMAL)
-        self.non_invert_button.pack()
+        self.non_invert_button.grid(row=1,column=1)
 
         # images
         # create objects
@@ -42,32 +42,34 @@ class App:
 
         # show images
         self.img = Label(image=self.invert_image_pi)
-        self.img.pack()
+        self.img.grid(row=2,column=0)
 
         # Gain label
         self.gain_label = Label(master, text=self.gain_label_text)
-        self.gain_label.pack()
+        self.gain_label.grid(row=3,column=0)
 
         # Inputs
-        rf_label = Label(master, text='RF: ', fg='black',bg='white').pack()
+        rf_label = Label(master, text='RF: ', fg='black',bg='white')
+        rf_label.grid(row=4,column=0)
         self.rf_entry = Entry(master)
-        self.rf_entry.pack()
-        rin_label = Label(master, text='RIN: ',fg='black',bg='white').pack()
+        self.rf_entry.grid(row=4,column=1)
+        rin_label = Label(master, text='RIN: ',fg='black',bg='white')
+        rin_label.grid(row=5,column=0)
         self.rin_entry = Entry(master)
-        self.rin_entry.pack()
+        self.rin_entry.grid(row=5,column=1)
 
         # Calculate
         self.calculate = Button(master, text="Calculate",
                                 command=self.calculate_answer)
-        self.calculate.pack()
+        self.calculate.grid(row=6,column=0)
 
         self.final_label = Label(
             master, text=self.answer, fg='black', bg='white')
-        self.final_label.pack()
+        self.final_label.grid(row=7,column=0)
 
         # FIN
-        self.close_button = Button(master, text="Close", command=master.quit)
-        self.close_button.pack()
+        self.close_button = Button(master, text="Close", command=master.quit,fg='red',bg='red')
+        self.close_button.grid(row=8,column=0)
 
     def switch_type(self):
         if self.cur_button == '1':
@@ -95,5 +97,5 @@ class App:
 
 root = Tk()
 app = App(root)
-#  root.geometry("1200x700")
+root.geometry("600x600")
 root.mainloop()
