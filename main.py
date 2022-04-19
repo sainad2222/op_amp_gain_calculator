@@ -68,7 +68,7 @@ class App:
         self.final_label.grid(row=7,column=0)
 
         # FIN
-        self.close_button = Button(master, text="Close", command=master.quit,fg='red',bg='red')
+        self.close_button = Button(master, text="Close", command=master.quit,fg='red',bg='white')
         self.close_button.grid(row=8,column=0)
 
     def switch_type(self):
